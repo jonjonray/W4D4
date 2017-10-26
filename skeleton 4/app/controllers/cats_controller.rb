@@ -1,4 +1,6 @@
 class CatsController < ApplicationController
+  before_action :edit, if: -> {@cat.user_id == current_user.id}
+
   def index
     @cats = Cat.all
     render :index
@@ -14,6 +16,8 @@ class CatsController < ApplicationController
     render :new
   end
 
+
+
   def create
     @cat = Cat.new(cat_params)
     if @cat.save
@@ -26,6 +30,7 @@ class CatsController < ApplicationController
 
   def edit
     @cat = Cat.find(params[:id])
+    # current_user.cats.select(id: params[:id])
     render :edit
   end
 

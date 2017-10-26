@@ -15,6 +15,9 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
   attr_reader :password
 
+  has_many :cats
+
+
   def valid_password?(password)
 
   end
