@@ -1,4 +1,13 @@
 <h1><%= @cat.name %></h1>
+<style>
+
+* {
+  background-color: #eee;
+  color: red;
+  
+}
+
+</style>
 
 <table>
   <tr>
@@ -14,12 +23,19 @@
 </table>
 
 <%= link_to "Edit #{@cat.name}", edit_cat_url(@cat) %>
+<form action="<%=new_cat_rental_request_url %>" method="GET">
+  <input type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>">
+  <input type="submit" value="Rent a Hella Cute Cat" />
+</form>
 
 <h2>Rental Requests</h2>
 <table>
   <tr>
     <th>Start Date</th>
     <th>End Date</th>
+    <th>Renter</th>
     <th>Status</th>
   </tr>
   <% @cat.rental_requests.order('start_date').each do |req| %>

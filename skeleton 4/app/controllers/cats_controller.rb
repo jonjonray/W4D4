@@ -1,5 +1,5 @@
 class CatsController < ApplicationController
-  before_action :edit, if: -> {@cat.user_id == current_user.id}
+  before_action :ensure_owns_cat, only: [:edit,:update]
 
   def index
     @cats = Cat.all
@@ -47,6 +47,6 @@ class CatsController < ApplicationController
   private
 
   def cat_params
-    params.require(:cat).permit(:age, :birth_date, :color, :description, :name, :sex)
+    params.require(:cat).permit(:age, :birth_date, :color, :description, :name, :sex, :user_id)
   end
 end

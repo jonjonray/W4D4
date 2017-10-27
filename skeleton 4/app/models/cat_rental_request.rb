@@ -13,6 +13,8 @@ class CatRentalRequest < ApplicationRecord
 
   after_initialize :assign_pending_status
 
+  belongs_to :user
+
   def approve!
     raise 'not pending' unless self.status == 'PENDING'
     transaction do

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  helper_method :current_user
 
   def login!(user)
     session[:session_token] = user.session_token
@@ -27,6 +28,10 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
-
+  def ensure_owns_cat
+    unless Cat.find(params[:id]).user_id == current_user.id
+      redirect_to cats_url
+    end
+  end
 
 end
